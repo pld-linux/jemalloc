@@ -1,12 +1,12 @@
 Summary:	General-purpose scalable concurrent malloc implementation
 Name:		jemalloc
-Version:	2.2.2
+Version:	2.2.3
 Release:	1
 License:	BSD
 Group:		Libraries
 URL:		http://www.canonware.com/jemalloc/
 Source0:	http://www.canonware.com/download/jemalloc/%{name}-%{version}.tar.bz2
-# Source0-md5:	65b2b3f68c9d229246a67f5a4d29ba83
+# Source0-md5:	9da87786f2cb399913daa01f95ad6b91
 # Remove pprof, as it already exists in google-perftools
 Patch0:		no_pprof.patch
 BuildRequires:	/usr/bin/xsltproc
