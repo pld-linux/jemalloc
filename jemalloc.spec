@@ -1,7 +1,7 @@
 Summary:	General-purpose scalable concurrent malloc implementation
 Name:		jemalloc
 Version:	2.2.3
-Release:	1
+Release:	2
 License:	BSD
 Group:		Libraries
 URL:		http://www.canonware.com/jemalloc/
@@ -46,7 +46,9 @@ Statyczna biblioteka jemalloc.
 cp -p VERSION version
 
 %build
-%configure
+%configure \
+  --with-jemalloc-prefix=je_
+
 %{__make}
 
 %install
