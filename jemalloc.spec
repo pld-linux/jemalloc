@@ -14,8 +14,8 @@ BuildRequires:	/usr/bin/xsltproc
 ExclusiveArch:	%{ix86} %{x8664} alpha sparc64 arm mips s390
 # broken for us
 # alpha: Missing implementation for 64-bit atomic operations"
-# alpha sparc ppc: Missing implementation for 32-bit atomic operations"
-ExcludeArch:	alpha %{ppc} sparc
+# alpha: Missing implementation for 32-bit atomic operations"
+ExcludeArch:	alpha
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
