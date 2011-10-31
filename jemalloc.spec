@@ -10,6 +10,12 @@ Source0:	http://www.canonware.com/download/jemalloc/%{name}-%{version}.tar.bz2
 # Remove pprof, as it already exists in google-perftools
 Patch0:		no_pprof.patch
 BuildRequires:	/usr/bin/xsltproc
+# list from include/jemalloc/internal/jemalloc_internal.h.in
+ExclusiveArch:	%{ix86} %{x8664} alpha sparc64 arm mips s390
+# broken for us
+# alpha: Missing implementation for 64-bit atomic operations"
+# alpha sparc ppc: Missing implementation for 32-bit atomic operations"
+ExcludeArch:	alpha %{ppc} sparc
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
