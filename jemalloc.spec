@@ -1,17 +1,18 @@
 Summary:	General-purpose scalable concurrent malloc implementation
+Summary(pl.UTF-8):	Ogólnego przeznaczenia, skalowalna, współbieżna implementacja funkcji malloc
 Name:		jemalloc
 Version:	2.2.3
 Release:	2
 License:	BSD
 Group:		Libraries
-URL:		http://www.canonware.com/jemalloc/
 Source0:	http://www.canonware.com/download/jemalloc/%{name}-%{version}.tar.bz2
 # Source0-md5:	9da87786f2cb399913daa01f95ad6b91
 # Remove pprof, as it already exists in google-perftools
 Patch0:		no_pprof.patch
-BuildRequires:	/usr/bin/xsltproc
+URL:		http://www.canonware.com/jemalloc/
+BuildRequires:	libxslt-progs
 # list from include/jemalloc/internal/jemalloc_internal.h.in
-ExclusiveArch:	%{ix86} %{x8664} alpha sparc64 arm mips s390
+ExclusiveArch:	%{ix86} %{x8664} alpha arm mips s390 sparc64
 # broken for us
 # alpha: Missing implementation for 64-bit atomic operations"
 # alpha: Missing implementation for 32-bit atomic operations"
@@ -22,14 +23,24 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 General-purpose scalable concurrent malloc(3) implementation. This
 distribution is the stand-alone "portable" implementation of jemalloc.
 
+%description -l pl.UTF-8
+Ogólnego przeznaczenia, skalowalna, współbieżna implementacja funkcji
+malloc(3). Ten pakiet zawiera samodzielną "przenośną" implementację
+jemalloc.
+
 %package devel
 Summary:	Development files for jemalloc
+Summary(pl.UTF-8):	Pliki programistyczne biblioteki jemalloc
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 
 %description devel
-This package contains libraries and header files for developing
-applications that use jemalloc library.
+This package contains the header files for developing applications
+that use jemalloc library.
+
+%description devel -l pl.UTF-8
+Ten pakiet zawiera pliki nagłówkowe do tworzenia aplikacji
+wykorzystujących bibliotekę jemalloc.
 
 %package static
 Summary:	Static jemalloc library
@@ -43,7 +54,6 @@ Static jemalloc library.
 %description static -l pl.UTF-8
 Statyczna biblioteka jemalloc.
 
-
 %prep
 %setup -q
 %patch0 -p0
@@ -53,7 +63,7 @@ cp -p VERSION version
 
 %build
 %configure \
-  --with-jemalloc-prefix=je_
+	--with-jemalloc-prefix=je_
 
 %{__make}
 
@@ -66,7 +76,7 @@ rm -rf $RPM_BUILD_ROOT
 cp -pf version VERSION
 
 # soname improperly made, use fake main name (just use our current version)
-mv $RPM_BUILD_ROOT%{_libdir}/libjemalloc.so.{?,%{version}}
+mv $RPM_BUILD_ROOT%{_libdir}/libjemalloc.so.{1,%{version}}
 ln -s $(basename $RPM_BUILD_ROOT%{_libdir}/libjemalloc.so.*.*.*) \
 	$RPM_BUILD_ROOT%{_libdir}/libjemalloc.so.1
 
@@ -81,15 +91,14 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc COPYING README VERSION
-%doc doc/jemalloc.html
+%doc COPYING README VERSION doc/jemalloc.html
 %attr(755,root,root) %{_libdir}/libjemalloc.so.*.*.*
-%ghost %{_libdir}/libjemalloc.so.1
+%attr(755,root,root) %ghost %{_libdir}/libjemalloc.so.1
 
 %files devel
 %defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libjemalloc.so
 %{_includedir}/jemalloc
-%{_libdir}/libjemalloc.so
 %{_mandir}/man3/jemalloc.3*
 
 %files static
