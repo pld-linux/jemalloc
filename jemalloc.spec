@@ -1,12 +1,12 @@
 Summary:	General-purpose scalable concurrent malloc implementation
 Summary(pl.UTF-8):	Ogólnego przeznaczenia, skalowalna, współbieżna implementacja funkcji malloc
 Name:		jemalloc
-Version:	2.2.3
-Release:	2
+Version:	2.2.4
+Release:	1
 License:	BSD
 Group:		Libraries
 Source0:	http://www.canonware.com/download/jemalloc/%{name}-%{version}.tar.bz2
-# Source0-md5:	9da87786f2cb399913daa01f95ad6b91
+# Source0-md5:	1909f34c665e89cc4c005286deed0341
 # Remove pprof, as it already exists in google-perftools
 Patch0:		no_pprof.patch
 URL:		http://www.canonware.com/jemalloc/
