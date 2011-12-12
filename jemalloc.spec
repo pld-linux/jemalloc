@@ -2,7 +2,7 @@ Summary:	General-purpose scalable concurrent malloc implementation
 Summary(pl.UTF-8):	Ogólnego przeznaczenia, skalowalna, współbieżna implementacja funkcji malloc
 Name:		jemalloc
 Version:	2.2.5
-Release:	1
+Release:	2
 License:	BSD
 Group:		Libraries
 Source0:	http://www.canonware.com/download/jemalloc/%{name}-%{version}.tar.bz2
@@ -62,9 +62,7 @@ Statyczna biblioteka jemalloc.
 cp -p VERSION version
 
 %build
-%configure \
-	--with-jemalloc-prefix=je_
-
+%configure
 %{__make}
 
 %install
