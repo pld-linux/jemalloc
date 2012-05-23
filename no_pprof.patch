@@ -1,24 +1,11 @@
---- Makefile.in.orig	2011-08-01 22:03:28.000000000 +0200
-+++ Makefile.in	2011-08-01 22:02:33.000000000 +0200
-@@ -42,7 +42,6 @@
- endif
+--- jemalloc-3.0.0/Makefile.in.orig	2012-05-12 02:50:38.000000000 +0200
++++ jemalloc-3.0.0/Makefile.in	2012-05-23 10:15:00.123902010 +0200
+@@ -69,7 +69,7 @@
+ LIBJEMALLOC := $(LIBPREFIX)jemalloc$(install_suffix)
  
  # Lists of files.
--BINS := @srcroot@bin/pprof
- CHDRS := @objroot@include/jemalloc/jemalloc@install_suffix@.h \
- 	@objroot@include/jemalloc/jemalloc_defs@install_suffix@.h
- CSRCS := @srcroot@src/jemalloc.c @srcroot@src/arena.c @srcroot@src/atomic.c \
-@@ -141,13 +140,6 @@
- 	$(CC) -o $@ $< -L@objroot@lib -ljemalloc@install_suffix@ -lpthread
- endif
- 
--install_bin:
--	install -d $(BINDIR)
--	@for b in $(BINS); do \
--	echo "install -m 755 $$b $(BINDIR)"; \
--	install -m 755 $$b $(BINDIR); \
--done
--
- install_include:
- 	install -d $(INCLUDEDIR)/jemalloc
- 	@for h in $(CHDRS); do \
+-BINS := $(srcroot)bin/pprof $(objroot)bin/jemalloc.sh
++BINS := $(objroot)bin/jemalloc.sh
+ CHDRS := $(objroot)include/jemalloc/jemalloc$(install_suffix).h \
+ 	$(objroot)include/jemalloc/jemalloc_defs$(install_suffix).h
+ CSRCS := $(srcroot)src/jemalloc.c $(srcroot)src/arena.c $(srcroot)src/atomic.c \

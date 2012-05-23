@@ -1,18 +1,18 @@
 Summary:	General-purpose scalable concurrent malloc implementation
 Summary(pl.UTF-8):	Ogólnego przeznaczenia, skalowalna, współbieżna implementacja funkcji malloc
 Name:		jemalloc
-Version:	2.2.5
-Release:	3
+Version:	3.0.0
+Release:	1
 License:	BSD
 Group:		Libraries
 Source0:	http://www.canonware.com/download/jemalloc/%{name}-%{version}.tar.bz2
-# Source0-md5:	a5c4332705ed0e3fff1ac73cfe975640
+# Source0-md5:	f487fdf847c9834b22c2b7832cadc56f
 # Remove pprof, as it already exists in google-perftools
 Patch0:		no_pprof.patch
 URL:		http://www.canonware.com/jemalloc/
 BuildRequires:	libxslt-progs
 # list from include/jemalloc/internal/jemalloc_internal.h.in
-ExclusiveArch:	%{ix86} %{x8664} alpha arm mips s390 sparc64
+ExclusiveArch:	%{ix86} %{x8664} alpha arm ia64 mips ppc s390x sh4 sparc64 tile
 # broken for us
 # alpha: Missing implementation for 64-bit atomic operations"
 # alpha: Missing implementation for 32-bit atomic operations"
@@ -56,7 +56,7 @@ Statyczna biblioteka jemalloc.
 
 %prep
 %setup -q
-%patch0 -p0
+%patch0 -p1
 
 # This is truncated during build. Seems interesting to save.
 cp -p VERSION version
@@ -92,6 +92,7 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc COPYING README VERSION doc/jemalloc.html
+%attr(755,root,root) %{_bindir}/jemalloc.sh
 %attr(755,root,root) %{_libdir}/libjemalloc.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/libjemalloc.so.1
 
