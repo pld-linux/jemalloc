@@ -1,19 +1,18 @@
 Summary:	General-purpose scalable concurrent malloc implementation
 Summary(pl.UTF-8):	Ogólnego przeznaczenia, skalowalna, współbieżna implementacja funkcji malloc
 Name:		jemalloc
-Version:	3.6.0
-Release:	3
+Version:	4.1.0
+Release:	1
 License:	BSD
 Group:		Libraries
 Source0:	http://www.canonware.com/download/jemalloc/%{name}-%{version}.tar.bz2
-# Source0-md5:	e76665b63a8fddf4c9f26d2fa67afdf2
-# Remove pprof, as it already exists in google-perftools
-Patch0:		no_pprof.patch
+# Source0-md5:	c4e53c947905a533d5899e5cc3da1f94
 URL:		http://www.canonware.com/jemalloc/
 BuildRequires:	libxslt-progs
+BuildRequires:	sed >= 4.0
 # list from include/jemalloc/internal/jemalloc_internal.h.in
 # https://github.com/jemalloc/jemalloc/blob/3.6.0/include/jemalloc/internal/jemalloc_internal.h.in#L239
-ExclusiveArch:	%{ix86} %{x8664} alpha arm ia64 mips ppc s390x sh4 sparc64 tile x32
+ExclusiveArch:	%{ix86} %{x8664} x32 alpha arm aarch64 hppa ia64 mips ppc s390x sh4 sparc64 tile
 # broken for us
 # alpha: Missing implementation for 64-bit atomic operations"
 # alpha: Missing implementation for 32-bit atomic operations"
@@ -57,10 +56,11 @@ Statyczna biblioteka jemalloc.
 
 %prep
 %setup -q
-%patch0 -p1
 
 # This is truncated during build. Seems interesting to save.
 cp -p VERSION version
+
+%{__sed} -i '1s, /usr/bin/env perl,%{__perl},' bin/jeprof.in
 
 %build
 # enable GNU+C99 standard (C99 for restrict keyword, GNU for asm)
@@ -79,9 +79,9 @@ rm -rf $RPM_BUILD_ROOT
 cp -pf version VERSION
 
 # soname improperly made, use fake main name (just use our current version)
-mv $RPM_BUILD_ROOT%{_libdir}/libjemalloc.so.{1,%{version}}
+%{__mv} $RPM_BUILD_ROOT%{_libdir}/libjemalloc.so.{2,%{version}}
 ln -s $(basename $RPM_BUILD_ROOT%{_libdir}/libjemalloc.so.*.*.*) \
-	$RPM_BUILD_ROOT%{_libdir}/libjemalloc.so.1
+	$RPM_BUILD_ROOT%{_libdir}/libjemalloc.so.2
 
 # Install this with doc macro instead
 %{__rm} $RPM_BUILD_ROOT%{_docdir}/%{name}/jemalloc.html
@@ -97,12 +97,15 @@ rm -rf $RPM_BUILD_ROOT
 %doc COPYING README VERSION doc/jemalloc.html
 %attr(755,root,root) %{_bindir}/jemalloc.sh
 %attr(755,root,root) %{_libdir}/libjemalloc.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libjemalloc.so.1
+%attr(755,root,root) %ghost %{_libdir}/libjemalloc.so.2
 
 %files devel
 %defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/jemalloc-config
+%attr(755,root,root) %{_bindir}/jeprof
 %attr(755,root,root) %{_libdir}/libjemalloc.so
 %{_includedir}/jemalloc
+%{_pkgconfigdir}/jemalloc.pc
 %{_mandir}/man3/jemalloc.3*
 
 %files static
