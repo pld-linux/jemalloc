@@ -1,12 +1,12 @@
 Summary:	General-purpose scalable concurrent malloc implementation
 Summary(pl.UTF-8):	Ogólnego przeznaczenia, skalowalna, współbieżna implementacja funkcji malloc
 Name:		jemalloc
-Version:	4.1.1
+Version:	4.2.1
 Release:	1
 License:	BSD
 Group:		Libraries
 Source0:	http://www.canonware.com/download/jemalloc/%{name}-%{version}.tar.bz2
-# Source0-md5:	7184512da1e4d3331f9587036a6c4739
+# Source0-md5:	094b0a7b8c77c464d0dc8f0643fd3901
 URL:		http://www.canonware.com/jemalloc/
 BuildRequires:	libxslt-progs
 BuildRequires:	sed >= 4.0
