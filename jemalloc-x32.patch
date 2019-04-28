@@ -1,0 +1,18 @@
+--- jemalloc-5.2.0/include/jemalloc/internal/bit_util.h.orig	2019-04-28 14:32:25.888211875 +0200
++++ jemalloc-5.2.0/include/jemalloc/internal/bit_util.h	2019-04-28 14:32:29.508401674 +0200
+@@ -86,13 +86,14 @@
+ 	if(unlikely(x <= 1)) {
+ 		return x;
+ 	}
+-	size_t msb_on_index;
+ #if (defined(__amd64__) || defined(__x86_64__))
++	uint64_t msb_on_index;
+ 	asm ("bsrq %1, %0"
+ 			: "=r"(msb_on_index) // Outputs.
+ 			: "r"(x-1)           // Inputs.
+ 		);
+ #elif (defined(JEMALLOC_HAVE_BUILTIN_CLZ))
++	size_t msb_on_index;
+ 	msb_on_index = (63 ^ __builtin_clzll(x - 1));
+ #endif
+ 	assert(msb_on_index < 63);
