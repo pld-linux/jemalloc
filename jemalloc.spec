@@ -1,18 +1,19 @@
 Summary:	General-purpose scalable concurrent malloc implementation
 Summary(pl.UTF-8):	Ogólnego przeznaczenia, skalowalna, współbieżna implementacja funkcji malloc
 Name:		jemalloc
-Version:	4.2.1
+Version:	5.2.0
 Release:	1
 License:	BSD
 Group:		Libraries
-Source0:	http://www.canonware.com/download/jemalloc/%{name}-%{version}.tar.bz2
-# Source0-md5:	094b0a7b8c77c464d0dc8f0643fd3901
-URL:		http://www.canonware.com/jemalloc/
+#Source0Download: https://github.com/jemalloc/jemalloc/releases
+Source0:	https://github.com/jemalloc/jemalloc/releases/download/%{version}/%{name}-%{version}.tar.bz2
+# Source0-md5:	0af300de702a1443e6560c1eae254df7
+URL:		http://jemalloc.net/
 BuildRequires:	libxslt-progs
 BuildRequires:	sed >= 4.0
 # list from include/jemalloc/internal/jemalloc_internal.h.in
 # https://github.com/jemalloc/jemalloc/blob/3.6.0/include/jemalloc/internal/jemalloc_internal.h.in#L239
-ExclusiveArch:	%{ix86} %{x8664} x32 alpha arm aarch64 hppa ia64 mips ppc s390x sh4 sparc64 tile
+ExclusiveArch:	%{ix86} %{x8664} x32 alpha %{arm} aarch64 hppa ia64 le32 mips or1k ppc riscv s390 s390x sh4 sparcv9 sparc64 tile
 # broken for us
 # alpha: Missing implementation for 64-bit atomic operations"
 # alpha: Missing implementation for 32-bit atomic operations"
