@@ -1,13 +1,13 @@
 Summary:	General-purpose scalable concurrent malloc implementation
 Summary(pl.UTF-8):	Ogólnego przeznaczenia, skalowalna, współbieżna implementacja funkcji malloc
 Name:		jemalloc
-Version:	5.2.0
-Release:	2
+Version:	5.2.1
+Release:	1
 License:	BSD
 Group:		Libraries
 #Source0Download: https://github.com/jemalloc/jemalloc/releases
 Source0:	https://github.com/jemalloc/jemalloc/releases/download/%{version}/%{name}-%{version}.tar.bz2
-# Source0-md5:	0af300de702a1443e6560c1eae254df7
+# Source0-md5:	3d41fbf006e6ebffd489bdb304d009ae
 Patch0:		%{name}-x32.patch
 URL:		http://jemalloc.net/
 BuildRequires:	libxslt-progs
